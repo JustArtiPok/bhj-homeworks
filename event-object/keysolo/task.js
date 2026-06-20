@@ -6,7 +6,6 @@ class Game {
     this.lossElement = container.querySelector('.status__loss');
 
     this.reset();
-
     this.registerEvents();
   }
 
@@ -17,18 +16,21 @@ class Game {
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода символа вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
+    document.addEventListener('keydown', (event) => {
+      if (event.key.length !== 1) return;
+      const currentChar = this.currentSymbol.textContent;
+      if (currentChar.toLowerCase() === event.key.toLowerCase()) {
+        this.success();
+      } else {
+        this.fail();
+      }
+    });
   }
 
   success() {
-    if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
+    if(this.currentSymbol.classList.contains("symbol_current")) {
+      this.currentSymbol.classList.remove("symbol_current");
+    }
     this.currentSymbol.classList.add('symbol_correct');
     this.currentSymbol = this.currentSymbol.nextElementSibling;
 
@@ -54,7 +56,6 @@ class Game {
 
   setNewWord() {
     const word = this.getWord();
-
     this.renderWord(word);
   }
 
@@ -73,7 +74,6 @@ class Game {
         'javascript'
       ],
       index = Math.floor(Math.random() * words.length);
-
     return words[index];
   }
 
@@ -85,10 +85,8 @@ class Game {
       )
       .join('');
     this.wordElement.innerHTML = html;
-
     this.currentSymbol = this.wordElement.querySelector('.symbol_current');
   }
 }
 
-new Game(document.getElementById('game'))
-
+new Game(document.getElementById('game'));
