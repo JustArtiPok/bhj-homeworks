@@ -18,6 +18,7 @@ class Game {
   registerEvents() {
     document.addEventListener('keydown', (event) => {
       if (event.key.length !== 1) return;
+
       const currentChar = this.currentSymbol.textContent;
       if (currentChar.toLowerCase() === event.key.toLowerCase()) {
         this.success();
@@ -28,7 +29,7 @@ class Game {
   }
 
   success() {
-    if(this.currentSymbol.classList.contains("symbol_current")) {
+    if (this.currentSymbol.classList.contains("symbol_current")) {
       this.currentSymbol.classList.remove("symbol_current");
     }
     this.currentSymbol.classList.add('symbol_correct');
@@ -47,7 +48,7 @@ class Game {
   }
 
   fail() {
-    if (++this.lossElement.textContent === 5) {
+    if (++this.lossElement.textContent === 3) {
       alert('Вы проиграли!');
       this.reset();
     }
